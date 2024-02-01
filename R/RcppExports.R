@@ -29,3 +29,19 @@ circular_local_loo <- function(y, K0, K1, A) {
     .Call('_CausalMetricSpaces_circular_local_loo', PACKAGE = 'CausalMetricSpaces', y, K0, K1, A)
 }
 
+distance_gaussian_cpp <- function(Sigma0, Sigma1) {
+    .Call('_CausalMetricSpaces_distance_gaussian_cpp', PACKAGE = 'CausalMetricSpaces', Sigma0, Sigma1)
+}
+
+frechet_mean_gaussian_cpp <- function(Sigma, weights, max_iter, tol) {
+    .Call('_CausalMetricSpaces_frechet_mean_gaussian_cpp', PACKAGE = 'CausalMetricSpaces', Sigma, weights, max_iter, tol)
+}
+
+bw_local <- function(mu, Sigma, K0, K1, A, max_iter, tol) {
+    .Call('_CausalMetricSpaces_bw_local', PACKAGE = 'CausalMetricSpaces', mu, Sigma, K0, K1, A, max_iter, tol)
+}
+
+bw_local_loo <- function(mu, Sigma, K0, K1, A, max_iter, tol) {
+    .Call('_CausalMetricSpaces_bw_local_loo', PACKAGE = 'CausalMetricSpaces', mu, Sigma, K0, K1, A, max_iter, tol)
+}
+

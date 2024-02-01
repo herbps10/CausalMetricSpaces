@@ -3,16 +3,18 @@
 #' @importFrom circular rvonmises circular
 #' @export
 simulate_circular <- function(
-    seed,
     N = 1e2,
     p = 2,
     e = function(W) 0.5,
 
     m = function(W) 0,
     tau = function(W) 0,
-    sigma = 0.1
+    sigma = 0.1,
+    seed = NA
 ) {
-  set.seed(seed)
+  if(!is.na(seed)) {
+    set.seed(seed)
+  }
 
   W <- matrix(runif(N * p), ncol = p)
   colnames(W) <- paste0("W", 1:p)
@@ -39,4 +41,26 @@ simulate_circular <- function(
            Y0 = Y0,
            Y1 = Y1,
            Y = Y)
+}
+
+#'
+#' @import ggplot2 dplyr
+#' @export
+plot_circular_simulated_data <- function(data) {
+  breaks <- c(0, pi / 2, pi, 3 * pi / 2)
+  labels <- c(expression(0), expression(frac(pi, 2)), expression(pi), expression(frac(3*pi, 2)))
+
+  data %>%
+    mutate(radius = ifelse(A == 0, 1, 1.2),
+           A = factor(A)) %>%
+    ggplot(aes(x = Y, y = radius)) +
+    geom_point(aes(color = A)) +
+    coord_polar(theta = "x") +
+    scale_y_continuous(limits = c(0, 1.2)) +
+    scale_x_continuous(limits = c(0, 2 * pi), breaks = breaks, labels = labels) +
+    theme(
+      axis.title.y = element_blank(),
+      axis.ticks.y = element_blank(),
+      axis.text.y = element_blank()
+    )
 }

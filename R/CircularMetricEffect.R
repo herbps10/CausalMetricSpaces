@@ -12,14 +12,14 @@ print.CircularMetricEffect <- function(x) {
 summary.CircularMetricEffect <- function(x) {
   cat(glue::glue("Naive estimator\n\n"))
   cat(glue::glue("Population effect: \t{round(x$naive$psi, 3)}\n\n"))
-  cat(glue::glue("Control mean: \t\t{round(x$naive$Qstar0, 3)}\n\n"))
-  cat(glue::glue("Treatment mean: \t{round(x$naive$Qstar1, 3)}\n\n"))
+  cat(glue::glue("Control: \t\t{round(x$naive$Qstar0, 3)}\n\n"))
+  cat(glue::glue("Treatment: \t{round(x$naive$Qstar1, 3)}\n\n"))
 
   cat("\n")
   cat(glue::glue("IPTW estimator\n\n"))
   cat(glue::glue("Population effect: \t{round(x$iptw$psi, 3)}\n\n"))
-  cat(glue::glue("Control Mean: \t\t{round(x$iptw$Qstar0, 3)}\n\n"))
-  cat(glue::glue("Treatment Mean: \t{round(x$iptw$Qstar1, 3)}\n\n"))
+  cat(glue::glue("Control: \t\t{round(x$iptw$Qstar0, 3)}\n\n"))
+  cat(glue::glue("Treatment: \t{round(x$iptw$Qstar1, 3)}\n\n"))
   if(!is.na(x$iptw$p_value)) {
     cat(glue::glue("Permutation P-value: \t{signif(x$iptw$p_value, 3)}\n\n"))
   }

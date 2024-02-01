@@ -1,0 +1,72 @@
+---
+title: "Gaussian Causal Effects"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Gaussian Causal Effects}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+This vignette shows how to use `CausalMetricSpaces` to estimate causal effects when the outcome is a Gaussian measure.
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(CausalMetricSpaces)
+```
+
+```{r simulation}
+# Probability of treatment given covariates
+e <- function(W) plogis(W[,1])
+  
+# Response surface
+m_mu <- function(W) c(W[1], W[2]) # Mean
+m_sigma <- function(W) 0.1        # Standard deviation
+m_rho <- function(W) 0.25          # Correlation
+
+# Treatment effect
+tau_mu <- function(W) c(0.2, 0.2) # Mean
+tau_sigma <- function(W) 0.05     # Standard deviation
+tau_rho <- function(W) 0        # Correlation
+
+N <- 100 # Number of observations
+p <- 2   # Number of covariates
+
+data <- simulate_gaussian(
+  N = N, 
+  p = p, 
+  e = e, 
+  m_mu = m_mu,
+  m_sigma = m_sigma,
+  m_rho = m_rho,
+  tau_mu = tau_mu,
+  tau_sigma = tau_sigma,
+  tau_rho = tau_rho
+)
+```
+
+```{r}
+plot_gaussian_simulated_data(data)
+```
+
+```{r}
+fit <- population_effect_gaussian(
+  data,
+  mu = "mu",
+  Sigma = "Sigma",
+  A = "A", 
+  W = c("W1", "W2"),
+  permutation_test = TRUE,
+  bootstrap_se = TRUE 
+)
+
+```
+
+```{r}
+summary(fit)
+```

@@ -114,6 +114,66 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// distance_gaussian_cpp
+double distance_gaussian_cpp(arma::mat Sigma0, arma::mat Sigma1);
+RcppExport SEXP _CausalMetricSpaces_distance_gaussian_cpp(SEXP Sigma0SEXP, SEXP Sigma1SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type Sigma0(Sigma0SEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type Sigma1(Sigma1SEXP);
+    rcpp_result_gen = Rcpp::wrap(distance_gaussian_cpp(Sigma0, Sigma1));
+    return rcpp_result_gen;
+END_RCPP
+}
+// frechet_mean_gaussian_cpp
+arma::mat frechet_mean_gaussian_cpp(std::vector<arma::mat> Sigma, arma::vec weights, int max_iter, double tol);
+RcppExport SEXP _CausalMetricSpaces_frechet_mean_gaussian_cpp(SEXP SigmaSEXP, SEXP weightsSEXP, SEXP max_iterSEXP, SEXP tolSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::vector<arma::mat> >::type Sigma(SigmaSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type weights(weightsSEXP);
+    Rcpp::traits::input_parameter< int >::type max_iter(max_iterSEXP);
+    Rcpp::traits::input_parameter< double >::type tol(tolSEXP);
+    rcpp_result_gen = Rcpp::wrap(frechet_mean_gaussian_cpp(Sigma, weights, max_iter, tol));
+    return rcpp_result_gen;
+END_RCPP
+}
+// bw_local
+double bw_local(std::vector<arma::vec> mu, std::vector<arma::mat> Sigma, arma::mat K0, arma::mat K1, arma::vec A, int max_iter, double tol);
+RcppExport SEXP _CausalMetricSpaces_bw_local(SEXP muSEXP, SEXP SigmaSEXP, SEXP K0SEXP, SEXP K1SEXP, SEXP ASEXP, SEXP max_iterSEXP, SEXP tolSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::vector<arma::vec> >::type mu(muSEXP);
+    Rcpp::traits::input_parameter< std::vector<arma::mat> >::type Sigma(SigmaSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type K0(K0SEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type K1(K1SEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type A(ASEXP);
+    Rcpp::traits::input_parameter< int >::type max_iter(max_iterSEXP);
+    Rcpp::traits::input_parameter< double >::type tol(tolSEXP);
+    rcpp_result_gen = Rcpp::wrap(bw_local(mu, Sigma, K0, K1, A, max_iter, tol));
+    return rcpp_result_gen;
+END_RCPP
+}
+// bw_local_loo
+double bw_local_loo(std::vector<arma::vec> mu, std::vector<arma::mat> Sigma, arma::mat K0, arma::mat K1, arma::vec A, int max_iter, double tol);
+RcppExport SEXP _CausalMetricSpaces_bw_local_loo(SEXP muSEXP, SEXP SigmaSEXP, SEXP K0SEXP, SEXP K1SEXP, SEXP ASEXP, SEXP max_iterSEXP, SEXP tolSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::vector<arma::vec> >::type mu(muSEXP);
+    Rcpp::traits::input_parameter< std::vector<arma::mat> >::type Sigma(SigmaSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type K0(K0SEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type K1(K1SEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type A(ASEXP);
+    Rcpp::traits::input_parameter< int >::type max_iter(max_iterSEXP);
+    Rcpp::traits::input_parameter< double >::type tol(tolSEXP);
+    rcpp_result_gen = Rcpp::wrap(bw_local_loo(mu, Sigma, K0, K1, A, max_iter, tol));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_CausalMetricSpaces_circular_objective_cpp", (DL_FUNC) &_CausalMetricSpaces_circular_objective_cpp, 3},
@@ -123,6 +183,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_CausalMetricSpaces_circular_local_linear_cpp", (DL_FUNC) &_CausalMetricSpaces_circular_local_linear_cpp, 11},
     {"_CausalMetricSpaces_circular_local_linear_loo_cpp", (DL_FUNC) &_CausalMetricSpaces_circular_local_linear_loo_cpp, 6},
     {"_CausalMetricSpaces_circular_local_loo", (DL_FUNC) &_CausalMetricSpaces_circular_local_loo, 4},
+    {"_CausalMetricSpaces_distance_gaussian_cpp", (DL_FUNC) &_CausalMetricSpaces_distance_gaussian_cpp, 2},
+    {"_CausalMetricSpaces_frechet_mean_gaussian_cpp", (DL_FUNC) &_CausalMetricSpaces_frechet_mean_gaussian_cpp, 4},
+    {"_CausalMetricSpaces_bw_local", (DL_FUNC) &_CausalMetricSpaces_bw_local, 7},
+    {"_CausalMetricSpaces_bw_local_loo", (DL_FUNC) &_CausalMetricSpaces_bw_local_loo, 7},
     {NULL, NULL, 0}
 };
 

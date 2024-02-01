@@ -2,10 +2,13 @@
 
 S3method(plot,CircularMetricEffect)
 S3method(print,CircularMetricEffect)
+S3method(print,GaussianMetricEffect)
 S3method(summary,CircularMetricEffect)
+S3method(summary,GaussianMetricEffect)
 export(plot_circular_simulated_data)
 export(population_effect_circular)
 export(simulate_circular)
+export(simulate_gaussian)
 import(dplyr)
 import(ggplot2)
 import(purrr)
