@@ -79,6 +79,11 @@ population_effect_gaussian <- function(data, mu, Sigma, A, W, fit_glm = TRUE, pe
   }
 
   res <- list(
+    data = data,
+    W = W,
+    A = A,
+    mu = mu,
+    Sigma = Sigma,
     naive = list(psi = naive_effect, Qstar0 = Qstar0_naive, Qstar1 = Qstar1_naive),
     iptw = list(psi = iptw_effect, Qstar0 = Qstar0_iptw, Qstar1 = Qstar1_iptw, bs = bs, ps = ps, gn = gn, p_value = p_value)
   )

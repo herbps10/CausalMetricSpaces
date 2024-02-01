@@ -10,22 +10,47 @@ print.CircularMetricEffect <- function(x) {
 #' @importFrom glue glue
 #' @export
 summary.CircularMetricEffect <- function(x) {
+  res <- list(
+    naive = list(
+      psi = x$naive$psi,
+      Qstar0 = x$naive$Qstar0,
+      Qstar1 = x$naive$Qstar1
+    ),
+    iptw = list(
+      psi = x$iptw$psi,
+      Qstar0 = x$iptw$Qstar0,
+      Qstar1 = x$iptw$Qstar1
+    )
+  )
+
+  if(!is.na(x$iptw$p_value)) {
+
+  }
+
+  if(!is.null(x$iptw$bs)) {
+    ci <- quantile(x$iptw$bs, c(0.025, 0.975))
+  }
+}
+
+#' @importFrom glue glue
+#' @export
+print.summaryCircularMetricEffect <- function(x, digits = 3) {
   cat(glue::glue("Naive estimator\n\n"))
-  cat(glue::glue("Population effect: \t{round(x$naive$psi, 3)}\n\n"))
-  cat(glue::glue("Control: \t\t{round(x$naive$Qstar0, 3)}\n\n"))
-  cat(glue::glue("Treatment: \t{round(x$naive$Qstar1, 3)}\n\n"))
+  cat(glue::glue("Population effect: \t{format(x$naive$psi, digits = digits)}\n\n"))
+  cat(glue::glue("Control: \t\t{format(x$naive$Qstar0, digits = digits)}\n\n"))
+  cat(glue::glue("Treatment: \t{format(x$naive$Qstar1, digits = digits)}\n\n"))
 
   cat("\n")
   cat(glue::glue("IPTW estimator\n\n"))
-  cat(glue::glue("Population effect: \t{round(x$iptw$psi, 3)}\n\n"))
-  cat(glue::glue("Control: \t\t{round(x$iptw$Qstar0, 3)}\n\n"))
-  cat(glue::glue("Treatment: \t{round(x$iptw$Qstar1, 3)}\n\n"))
+  cat(glue::glue("Population effect: \t{format(x$iptw$psi, digits = digits)}\n\n"))
+  cat(glue::glue("Control: \t\t{format(x$iptw$Qstar0, digits = digits)}\n\n"))
+  cat(glue::glue("Treatment: \t{format(x$iptw$Qstar1, digits = digits)}\n\n"))
   if(!is.na(x$iptw$p_value)) {
-    cat(glue::glue("Permutation P-value: \t{signif(x$iptw$p_value, 3)}\n\n"))
+    cat(glue::glue("Permutation P-value: \t{format(x$iptw$p_value, digits = digits)}\n\n"))
   }
-  if(!is.null(fit$iptw$bs)) {
-    ci <- quantile(fit$iptw$bs, c(0.025, 0.975))
-    cat(glue::glue("Bootstrap 95% CI: \t({signif(ci[1], 3)}, {signif(ci[2], 3)})\n\n"))
+  if(!is.null(x$iptw$bs)) {
+    ci <- quantile(x$iptw$bs, c(0.025, 0.975))
+    cat(glue::glue("Bootstrap 95% CI: \t({format(ci[1], digits = digits)}, {format(ci[2], digits = digits)})\n\n"))
   }
 }
 

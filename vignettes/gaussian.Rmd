@@ -64,9 +64,12 @@ fit <- population_effect_gaussian(
   permutation_test = TRUE,
   bootstrap_se = TRUE 
 )
-
 ```
 
 ```{r}
 summary(fit)
+```
+
+```{r}
+plot(fit)
 ```
