@@ -1,0 +1,67 @@
+---
+title: "Circular Causal Effects"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Circular Causal Effects}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(CausalMetricSpaces)
+```
+
+```{r simulate}
+# Probability of treatment given covariates
+e <- function(W) plogis(W[,1] - 0.5)
+
+# Outcome surface
+m <- function(W) pi * W[,1]
+
+# Treatment effect
+tau <- function(W) 0.5
+  
+N <- 500 # Number of observations
+p <- 2   # Number of covariates
+sigma <- 0.1 # Outcome variance
+
+data <- simulate_circular(
+  seed = 1532, 
+  N = N, 
+  p = p, 
+  e = e, 
+  m = m, 
+  tau = tau, 
+  sigma = sigma
+)
+```
+
+```{r}
+plot_circular_simulated_data(data)
+```
+
+```{r}
+fit <- population_effect_circular(
+  data,
+  Y = "Y",
+  A = "A",
+  W = c("W1", "W2"), 
+  permutation_test = TRUE,
+  bootstrap_se = TRUE
+)
+```
+
+```{r}
+summary(fit)
+```
+
+```{r}
+plot(fit)
+```
